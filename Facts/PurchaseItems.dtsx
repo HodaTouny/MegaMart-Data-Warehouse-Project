@@ -1,0 +1,937 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/17/2024 1:26:56 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-QFVANTDD"
+  DTS:CreatorName="LAPTOP-QFVANTDD\Maya"
+  DTS:DTSID="{C277401B-03C5-49AE-B1A7-CC13028344C2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PurchaseItemsFact"
+  DTS:PackageType="5"
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{1DE9EC67-A8B8-4B16-9390-7C7C974B19B0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2E3062BD-D46F-471A-86A5-E77F06D2F410}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Last_buy_date">
+      <DTS:VariableValue
+        DTS:DataType="7">5/17/1900 2:54:14 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load PurchaseItemFact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3d50fa80-c582-4b53-b522-1c1866b2a619}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load PurchaseItemFact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load PurchaseItemFact\Add Total Price"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Add Total Price"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load PurchaseItemFact\Add Total Price.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\Add Total Price.Inputs[Derived Column Input].Columns[Quantity]"
+                      cachedDataType="i4"
+                      cachedName="Quantity"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Quantity]" />
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\Add Total Price.Inputs[Derived Column Input].Columns[Original_Price]"
+                      cachedDataType="r8"
+                      cachedName="Original_Price"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Original_Price]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\Add Total Price.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Output].Columns[TotalPrice]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Output].Columns[TotalPrice]"
+                      name="TotalPrice"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Original_Price]} * #{Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Quantity]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Original_Price * Quantity</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\Add Total Price.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PurchaseItemFact\date key"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="date key"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load PurchaseItemFact\date key.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\date key.Inputs[Derived Column Input].Columns[buy_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="buy_date"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[buy_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\date key.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Output].Columns[DateKEY]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Output].Columns[DateKEY]"
+                      name="DateKEY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)[REPLACE]([SUBSTRING]((DT_WSTR,50)#{Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[buy_date]},1,10),"-","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)REPLACE(SUBSTRING((DT_WSTR,50)buy_date,1,10),"-","")</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\date key.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PurchaseItemFact\productInventory"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="productInventory"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[productInventory_dim]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT  * FROM productinventory_dim WHERE (  buy_date&gt;?)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{2E3062BD-D46F-471A-86A5-E77F06D2F410};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PurchaseItemFact\productInventory.Connections[OleDbConnection]"
+                  connectionManagerID="{8AE15770-71CF-456B-9156-E48CA698A58E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-ERV2HEA.DWH-Ecommerce]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[PKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[PKey]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[PKey]"
+                      name="PKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[PID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[PID]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[PID]"
+                      name="PID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[productname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[productname]"
+                      length="50"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[productname]"
+                      name="productname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Quantity]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[Quantity]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Quantity]"
+                      name="Quantity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Original_Price]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[Original_Price]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Original_Price]"
+                      name="Original_Price"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[buy_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[buy_date]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[buy_date]"
+                      name="buy_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[update_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[update_date]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[update_date]"
+                      name="update_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[PKey]"
+                      dataType="i4"
+                      name="PKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[PID]"
+                      dataType="i4"
+                      name="PID" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[productname]"
+                      dataType="wstr"
+                      length="50"
+                      name="productname" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[Quantity]"
+                      dataType="i4"
+                      name="Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[Original_Price]"
+                      dataType="r8"
+                      name="Original_Price" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[buy_date]"
+                      dataType="dbTimeStamp"
+                      name="buy_date" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].ExternalColumns[update_date]"
+                      dataType="dbTimeStamp"
+                      name="update_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[PKey]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[PKey]"
+                      name="PKey" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[PID]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[PID]"
+                      name="PID" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[productname]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[productname]"
+                      name="productname" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[Quantity]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[Quantity]"
+                      name="Quantity" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[Original_Price]"
+                      dataType="r8"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[Original_Price]"
+                      name="Original_Price" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[buy_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[buy_date]"
+                      name="buy_date" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[update_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[update_date]"
+                      name="update_date" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PurchaseItemFact\PurchasedItems"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PurchasedItems"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[purchasedItems]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PurchaseItemFact\PurchasedItems.Connections[OleDbConnection]"
+                  connectionManagerID="{8AE15770-71CF-456B-9156-E48CA698A58E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-ERV2HEA.DWH-Ecommerce]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].Columns[TotalPrice]"
+                      cachedDataType="r8"
+                      cachedName="TotalPrice"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[TotalPrice]"
+                      lineageId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Output].Columns[TotalPrice]" />
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].Columns[Original_Price]"
+                      cachedDataType="r8"
+                      cachedName="Original_Price"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[OriginalPrice]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[Original_Price]" />
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].Columns[PID]"
+                      cachedDataType="i4"
+                      cachedName="PID"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      lineageId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output].Columns[PID]" />
+                    <inputColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].Columns[DateKEY]"
+                      cachedDataType="i4"
+                      cachedName="DateKEY"
+                      externalMetadataColumnId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      lineageId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Output].Columns[DateKEY]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[OrderItemFactKEY]"
+                      dataType="i4"
+                      name="OrderItemFactKEY" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[OriginalPrice]"
+                      dataType="r8"
+                      name="OriginalPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[TotalPrice]"
+                      dataType="r8"
+                      name="TotalPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      dataType="i4"
+                      name="DateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      dataType="i4"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input].ExternalColumns[Qunatity]"
+                      dataType="i4"
+                      name="Qunatity" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PurchaseItemFact\PurchasedItems.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\PurchasedItems.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\PurchasedItems.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\PurchasedItems.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PurchaseItemFact\Update Date"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update Date"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE config_table
+SET update_date = GETDATE()
+WHERE table_name = 'Fact_orginal_price';</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PurchaseItemFact\Update Date.Connections[OleDbConnection]"
+                  connectionManagerID="{8AE15770-71CF-456B-9156-E48CA698A58E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DESKTOP-ERV2HEA.DWH-Ecommerce]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load PurchaseItemFact\Update Date.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <externalMetadataColumns
+                    isUsed="True" />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\Update Date.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Load PurchaseItemFact\Update Date.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load PurchaseItemFact.Paths[Derived Column Output]"
+              endId="Package\Load PurchaseItemFact\date key.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\Load PurchaseItemFact\Add Total Price.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load PurchaseItemFact.Paths[Derived Column Output1]"
+              endId="Package\Load PurchaseItemFact\PurchasedItems.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load PurchaseItemFact\date key.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load PurchaseItemFact.Paths[OLE DB Command Output]"
+              endId="Package\Load PurchaseItemFact\Add Total Price.Inputs[Derived Column Input]"
+              name="OLE DB Command Output"
+              startId="Package\Load PurchaseItemFact\Update Date.Outputs[OLE DB Command Output]" />
+            <path
+              refId="Package\Load PurchaseItemFact.Paths[OLE DB Source Output]"
+              endId="Package\Load PurchaseItemFact\Update Date.Inputs[OLE DB Command Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load PurchaseItemFact\productInventory.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\update_date"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{554C2F56-23A8-4B3A-8C6B-B3DD03BD0BA9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="update_date"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8AE15770-71CF-456B-9156-E48CA698A58E}"
+          SQLTask:SqlStatementSource="SELECT  update_date  FROM config_table WHERE table_name = 'Fact_original_price'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::Last_buy_date" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{89A7FF73-B2E8-4F9A-9887-BB1597C17D61}"
+      DTS:From="Package\update_date"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load PurchaseItemFact" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Load PurchaseItemFact"
+          TopLeft="373.333316213556,185.666665792796" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\update_date"
+          TopLeft="355.833313891458,58.0666662628783" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="423.833313891458,99.6666662628783">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43.9000023220979,85.9999995299177"
+              Start="0,0"
+              End="43.9000023220979,78.4999995299177">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.9999997649589" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.9999997649589"
+                    Point2="0,42.9999997649589"
+                    Point3="4,42.9999997649589" />
+                  <mssgle:LineSegment
+                    End="39.9000023220979,42.9999997649589" />
+                  <mssgle:CubicBezierSegment
+                    Point1="39.9000023220979,42.9999997649589"
+                    Point2="43.9000023220979,42.9999997649589"
+                    Point3="43.9000023220979,46.9999997649589" />
+                  <mssgle:LineSegment
+                    End="43.9000023220979,78.4999995299177" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load PurchaseItemFact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="118,42"
+          Id="Package\Load PurchaseItemFact\date key"
+          TopLeft="432.499976369243,232.266665051513" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Load PurchaseItemFact\Add Total Price"
+          TopLeft="393.775240348383,160.175754808879" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load PurchaseItemFact\PurchasedItems"
+          TopLeft="411.666644174192,331.06666436447" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Load PurchaseItemFact\productInventory"
+          TopLeft="72.0000052849452,34.0666663105621" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Load PurchaseItemFact\Update Date"
+          TopLeft="384.999978964527,33.799999764959" />
+        <EdgeLayout
+          Id="Package\Load PurchaseItemFact.Paths[Derived Column Output]"
+          TopLeft="468.575240348383,201.775754808879">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.72473602086,30.4909102426339"
+              Start="0,0"
+              End="22.72473602086,22.9909102426339">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.245455121317" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.245455121317"
+                    Point2="0,15.245455121317"
+                    Point3="4,15.245455121317" />
+                  <mssgle:LineSegment
+                    End="18.72473602086,15.245455121317" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.72473602086,15.245455121317"
+                    Point2="22.72473602086,15.245455121317"
+                    Point3="22.72473602086,19.245455121317" />
+                  <mssgle:LineSegment
+                    End="22.72473602086,22.9909102426339" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PurchaseItemFact.Paths[OLE DB Source Output]"
+          TopLeft="228.000005284945,54.7333330377605">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156.999973679582,0"
+              Start="0,0"
+              End="149.499973679582,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="149.499973679582,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PurchaseItemFact.Paths[OLE DB Command Output]"
+          TopLeft="453.399978964527,75.399999764959">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="15.1752613838561,84.77575504392"
+              Start="0,0"
+              End="15.1752613838561,77.27575504392">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.38787752196" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.38787752196"
+                    Point2="0,42.38787752196"
+                    Point3="4,42.38787752196" />
+                  <mssgle:LineSegment
+                    End="11.1752613838561,42.38787752196" />
+                  <mssgle:CubicBezierSegment
+                    Point1="11.1752613838561,42.38787752196"
+                    Point2="15.1752613838561,42.38787752196"
+                    Point3="15.1752613838561,46.38787752196" />
+                  <mssgle:LineSegment
+                    End="15.1752613838561,77.27575504392" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PurchaseItemFact.Paths[Derived Column Output1]"
+          TopLeft="489.883310271718,273.866665051513">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57.199999312957"
+              Start="0,0"
+              End="0,49.699999312957">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.699999312957" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PurchaseItemFact\productInventory">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PurchaseItemFact\PurchasedItems">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
